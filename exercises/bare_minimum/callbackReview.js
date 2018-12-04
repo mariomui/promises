@@ -10,7 +10,7 @@ var pluckFirstLineFromFile = (filePath, callback) => {
   fs.readFile(filePath, (err, lines) => {
     if (err) {
       callback(err);          
-    } else{
+    } else {
       var firstLine = lines.toString().split('\n')[0];      
       callback(null, firstLine);
     }
@@ -19,14 +19,14 @@ var pluckFirstLineFromFile = (filePath, callback) => {
 
 // This function should retrieve the status code of a GET request to `url`
 var getStatusCode = (url, callback) => {
-  request(url, (err, statusCode)=> {
-    if(err) {
+  request(url, (err, response)=> {
+    if (err) {
       callback(err);
     } else {
-      callback(null, 200);
+      callback(null, response.statusCode);
     }
 
-  })
+  });
 };
 
 // Export these functions so we can test them and reuse them in later exercises
