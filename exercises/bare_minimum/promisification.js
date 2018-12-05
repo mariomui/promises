@@ -13,7 +13,7 @@ var getGitHubProfile = function (user, callback) {
   var options = {
     url: 'https://api.github.com/users/' + user,
     headers: { 'User-Agent': 'request' },
-    json: true  // will JSON.parse(body) for us
+    json: true,  // will JSON.parse(body) for us
   };
 
   request.get(options, function (err, res, body) {
@@ -66,5 +66,6 @@ var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny); // 
 module.exports = {
   getGitHubProfileAsync: getGitHubProfileAsync,
   generateRandomTokenAsync: generateRandomTokenAsync,
-  readFileAndMakeItFunnyAsync: readFileAndMakeItFunnyAsync
+  readFileAndMakeItFunnyAsync: readFileAndMakeItFunnyAsync,
+  getGitHubProfileAsync: getGitHubProfileAsync
 };

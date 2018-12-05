@@ -13,31 +13,38 @@ var fs = require('fs');
 var Promise = require('bluebird');
 var rp = require('request-promise');
 var fsp = Promise.promisifyAll(fs);
+var pluckFirstLineFromFileAsync = require('./promiseConstructor').pluckFirstLineFromFileAsync;
+var getGitHubProfileAsync = require('./promisification').getGitHubProfileAsync;
 
 var fetchProfileAndWriteToFile = function (readFilePath, writeFilePath) {
+  return pluckFirstLineFromFileAsync(readFilePath).then((gitHandle) => {
+    return getGitHubProfileAsync(gitHandle).then((response) => {
+      return fsp.writeFileAsync(writeFilePath, JSON.stringify(response));
+    });
+  });
   // TODO
   //read a githubusername
   // console.log(readFilePath);
-  return fsp.readFileAsync(readFilePath).then(function (lines) {
-    if (!lines) {
-      throw new Error('line doesnt exists!');
-    } else {
-      var gitHandle = lines.toString().split('\n')[0];
-      // console.log(gitHandle, 'ggjkdfjdlkfj');
-      return gitHandle;
-    }
-  }).then(function (gitHandle) {
-    var options = {
-      uri: 'https://api.github.com/users/' + gitHandle,
-      header: { statusCode: 200 },
-      json: true,
-    };
-    var response = rp(options);
-    // console.log(response);
-    return response;
-  }).then(function (response) {
-    return fsp.writeFileAsync(writeFilePath, JSON.stringify(response));
-  });
+  // return fsp.readFileAsync(readFilePath).then(function (lines) {
+  //   if (!lines) {
+  //     throw new Error('line doesnt exists!');
+  //   } else {
+  //     var gitHandle = lines.toString().split('\n')[0];
+  //     // console.log(gitHandle, 'ggjkdfjdlkfj');
+  //     return gitHandle;
+  //   }
+  // }).then(function (gitHandle) {
+  //   var options = {
+  //     uri: 'https://api.github.com/users/' + gitHandle,
+  //     header: { statusCode: 200 },
+  //     json: true,
+  //   };
+  //   var response = rp(options);
+  //   // console.log(response);
+  //   return response;
+  // }).then(function (response) {
+  //   return fsp.writeFileAsync(writeFilePath, JSON.stringify(response));
+  // });
 
 };
 
