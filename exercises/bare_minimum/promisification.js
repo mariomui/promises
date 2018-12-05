@@ -59,9 +59,8 @@ var readFileAndMakeItFunny = function(filePath, callback) {
   });
 };
 
-var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny); // TODO
-var filePath = 
-readFileAndMakeItFunnyAsync(filePath).then((file) => {return file});
+var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny); // TODO 
+
 
 // Export these functions so we can test them and reuse them in later exercises
 module.exports = {

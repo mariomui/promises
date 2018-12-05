@@ -11,9 +11,22 @@
 var fs = require('fs');
 var Promise = require('bluebird');
 
+var fsp = Promise.promisifyAll(require('fs'));
+
 var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
   // TODO
+  //read a githubusername
+  console.log(readFilePath);
+  return fsp.readFile(readFilePath).then( function(line) {
+    if (!line) {
+      throw new Error('line doesnt exists!')
+    } else {
+      console.log(line);
+    }
+  })
 };
+
+// var fetchProfileAndWriteToFileAsync = Promise
 
 // Export these functions so we can test them
 module.exports = {
