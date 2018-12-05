@@ -9,9 +9,9 @@ var request = require('request');
 var pluckFirstLineFromFile = (filePath, callback) => {
   fs.readFile(filePath, (err, lines) => {
     if (err) {
-      callback(err);          
+      callback(err);
     } else {
-      var firstLine = lines.toString().split('\n')[0];      
+      var firstLine = lines.toString().split('\n')[0];
       callback(null, firstLine);
     }
   });
@@ -19,7 +19,7 @@ var pluckFirstLineFromFile = (filePath, callback) => {
 
 // This function should retrieve the status code of a GET request to `url`
 var getStatusCode = (url, callback) => {
-  request(url, (err, response)=> {
+  request(url, (err, response) => {
     if (err) {
       callback(err);
     } else {
